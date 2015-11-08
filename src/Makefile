@@ -1,7 +1,5 @@
-build-composer: composer.json
-	composer install
-
-build: build-composer
+build: composer.json
+	php /composer.phar install && \
 	./vendor/bin/propel sql:build --overwrite && \
 	./vendor/bin/propel model:build
 
