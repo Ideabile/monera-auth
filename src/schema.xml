@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="auth" defaultIdMethod="native" namespace="Auth">
+  <!-- Website to login to -->
+  <table name="website" namespace="Website">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="title" type="varchar" size="255" required="true" />
+    <column name="url" type="varchar" size="255" required="true"/>
+  </table>
+
+  <!-- Gates - Website connects to logins providers -->
+  <table name="gate" namespace="Gate">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" required="true" />
+    <column name="id_provider" type="integer" required="true" />
+    <column name="key" type="varchar" size="128" required="true"/>
+    <column name="secret" type="varchar" size="128" required="true"/>
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Gate">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="provider" phpName="Provider" refPhpName="Gate">
+     <reference local="id_provider" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Login Providers -->
+  <table name="provider" namespace="Provider">
+   <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+   <column name="name" type="varchar" size="128" required="true" />
+  </table>
+</database>

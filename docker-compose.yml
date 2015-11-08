@@ -1,0 +1,17 @@
+db:
+  image: postgres
+  ports:
+    - "5432:5432"
+  volumes:
+    - ./data:/data
+  environment:
+    - POSTGRES_USER=root
+    - POSTGRES_PASSWORD=root
+www:
+  image: maxexcloo/nginx-php
+  hostname: login.monera.dev
+  ports:
+    - "81:80"
+  volumes:
+    - ./src/:/data/http
+    - ./config/:/data/config

@@ -1,0 +1,4 @@
+src/vendor/
+src/generated-classes/
+src/generated-conf/
+src/generated-sql/

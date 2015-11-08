@@ -1,0 +1,23 @@
+{
+    "name": "monera/login",
+    "description": "Login service for monera",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mauro Mandracchia",
+            "email": "info@ideabile.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+      "propel/propel": "~2.0@dev",
+      "propel/propel-bundle": "~2.0@dev",
+      "hybridauth/hybridauth": "~2.0@dev",
+      "slim/slim": "~2.6"
+    },
+    "autoload": {
+      "psr-0": {
+        "Auth": "generated-classes/"
+      }
+    }
+}
