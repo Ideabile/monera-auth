@@ -13,11 +13,14 @@
       "propel/propel": "~2.0@dev",
       "propel/propel-bundle": "~2.0@dev",
       "hybridauth/hybridauth": "~2.0@dev",
-      "slim/slim": "~2.6"
+      "slim/slim": "~2.6",
+        "willdurand/hateoas": "~2.8",
+        "nelmio/alice": "~2.1"
     },
     "autoload": {
       "psr-0": {
-        "Auth": "generated-classes/"
+        "Auth": "generated-classes/",
+        "App":  "libs/"
       }
     }
 }

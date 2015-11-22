@@ -1,0 +1,15 @@
+Nelmio\Entity\User:
+    user{1..10}:
+        username: <username()>
+        fullname: <firstName()> <lastName()>
+        birthDate: <date()>
+        email: <email()>
+        favoriteNumber: 50%? <numberBetween(1, 200)>
+
+Nelmio\Entity\Group:
+    group1:
+        name: Admins
+        owner: @user1
+        members: <numberBetween(1, 10)>x @user*
+        created: <dateTimeBetween('-200 days', 'now')>
+        updated: <dateTimeBetween($created, 'now')>

@@ -1,0 +1,30 @@
+# db:
+#   build: .
+#   dockerfile: ./dev/dbDockerfile
+#   ports:
+#     - "5432:5432"
+#   volumes:
+#     - ./data:/var/lib/postgresql/data
+#   environment:
+#     - POSTGRES_USER=root
+#     - POSTGRES_PASSWORD=root
+
+db:
+  image: postgres
+  ports:
+    - "5432:5432"
+  environment:
+    - POSTGRES_USER=auth
+    - POSTGRES_PASSWORD=auth
+
+auth:
+  build: .
+  ports:
+    - 80:80
+  volumes:
+    - ./src:/data/http
+    - ./config:/data/config
+  links:
+    - db
+  environment:
+    - DB_HOST=db_1

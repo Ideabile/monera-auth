@@ -1,7 +1,5 @@
 FROM maxexcloo/nginx-php
 VOLUME ["/data/http", "/data/config"]
-ADD ./src /data/http
-ADD ./config /data/config
 
 ENV DB_HOST localhost
 ENV DB_NAME auth
