@@ -24,7 +24,12 @@ auth:
   volumes:
     - ./src:/data/http
     - ./config:/data/config
+    - ./data:/data/logs
   links:
     - db
   environment:
+    - VIRTUAL_HOST=ideabile.dev,auth.ideabile.dev
     - DB_HOST=db_1
+    - DB_NAME=auth
+    - DB_USER=auth
+    - DB_PASSWORD=auth

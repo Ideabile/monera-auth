@@ -1,19 +1,23 @@
 <?php
 namespace App;
 
+// Request and Response interface
+use \Psr\Http\Message\ServerRequestInterface as Request;
+use \Psr\Http\Message\ResponseInterface as Response;
+
 // Website
-use Auth\Website\Website as Website;
-use Auth\Website\WebsiteQuery as WebsiteQuery;
+use Auth\Auth\Website\Website as Website;
+use Auth\Auth\Website\WebsiteQuery as WebsiteQuery;
 
 //Provider
-use Auth\Provider\Provider as Provider;
-use Auth\Provider\ProviderQuery as ProviderQuery;
+use Auth\Auth\Provider\Provider as Provider;
+use Auth\Auth\Provider\ProviderQuery as ProviderQuery;
 
 // Gate
-use Auth\Gate\Gate as Gate;
-use Auth\Gate\GateQuery as GateQuery;
+use Auth\Auth\Gate\Gate as Gate;
+use Auth\Auth\Gate\GateQuery as GateQuery;
 
-use \App\Router as Router;
+use App\Router as Router;
 
 // The App
 class App extends Router {
@@ -36,6 +40,7 @@ class App extends Router {
     // 'get/:id_website/users' => 'getUsers',
     // 'get/:id_website/role' => 'getRole',
     // 'get/:id_website/permissions' => 'getPermissions',
+    '/' => 'helloWorld',
     '/auth/:id(/:try/)' => 'auth'
   ];
 
@@ -60,6 +65,13 @@ class App extends Router {
   public function __construct(){
     session_start();
     parent::__construct();
+  }
+
+  public function helloWorld($one){
+    $args = func_get_args();
+    var_dump($args);
+    // return $response->getBody()->write("Hello world!");
+    return "Hello world!";
   }
 
   public function auth($id = false, $try = null){

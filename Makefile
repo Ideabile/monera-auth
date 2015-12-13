@@ -1,19 +1,26 @@
 dev: docker-compose.yml
 	mkdir -p ./www && \
-	export TASK="dev" && \
-	docker-compose up -d
+	export CONTENT="$(shell pwd)/ui" && \
+	export SRC="$(shell pwd)/generator/src" && \
+	export STYLE="$(shell pwd)/generator/style" && \
+	export DEST="$(shell pwd)/generator/destination" && \
+	$(MAKE) -C generator dev
 
-build: docker-compose.yml
-	docker-compose run auth make build
+install: src/Makefile
+	$(MAKE) -C src install && \
+	$(MAKE) -C src build
+
+build: install
+	docker-compose build auth
 
 schema: docker-compose.yml
-	docker-compose run auth make schema
+	docker-compose run auth schema
 
 fixtures: docker-compose.yml
-	docker-compose run auth make fixtures
+	docker-compose run auth fixtures
 
 prod: docker-compose.yml
-	docker-compose up auth -d
+	docker-compose up -d
 
 stop: docker-compose.yml
 	docker-compose kill && \

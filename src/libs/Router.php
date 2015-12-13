@@ -3,15 +3,15 @@ namespace App;
 
 class Router {
 
-  protected $get;
+  protected $get = [];
 
-  protected $post;
+  protected $post = [];
 
-  protected $put;
+  protected $put = [];
 
-  protected $delete;
+  protected $delete = [];
 
-  protected $option;
+  protected $option = [];
 
   public function __construct(){
     $this->router  = new \Slim\Slim();
@@ -25,11 +25,9 @@ class Router {
   }
 
   public function parseRoutes( $method ){
-    $obj = $this;
-
     foreach ( $this->{$method} as $route => $action ) {
-      return call_user_func(
-        array( $this->router, $method ),
+      call_user_func(
+        array( $this->router, 'add' ),
         $route, $this->getAction( $action )
       );
     }
@@ -42,9 +40,9 @@ class Router {
       $args = func_get_args();
       try {
         $result = call_user_func_array( array( $obj, $action ), $args );
-        return echo json_encode( $result );
+        return var_dump(json_encode( $result ));
       } catch (Exception $e) {
-        return echo $e->getMessage();
+        return var_dump($e->getMessage());
       }
 
     };

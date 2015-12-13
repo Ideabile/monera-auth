@@ -3,7 +3,7 @@
 require 'vendor/autoload.php';
 require 'generated-conf/config.php';
 
-use \App as App;
+use \App\App as App;
 
 try{
   new App();

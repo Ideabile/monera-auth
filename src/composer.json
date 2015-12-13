@@ -1,6 +1,6 @@
 {
-    "name": "monera/login",
-    "description": "Login service for monera",
+    "name": "monera/auth",
+    "description": "A Gateway for Authentication, service for monera",
     "license": "MIT",
     "authors": [
         {
@@ -8,19 +8,20 @@
             "email": "info@ideabile.com"
         }
     ],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
       "propel/propel": "~2.0@dev",
       "propel/propel-bundle": "~2.0@dev",
       "hybridauth/hybridauth": "~2.0@dev",
-      "slim/slim": "~2.6",
-        "willdurand/hateoas": "~2.8",
-        "nelmio/alice": "~2.1"
+      "slim/slim": "^3.0",
+      "willdurand/hateoas": "~2.8",
+      "nelmio/alice": "~2.1"
     },
     "autoload": {
-      "psr-0": {
-        "Auth": "generated-classes/",
-        "App":  "libs/"
+      "psr-4": {
+        "App\\":  "libs/",
+        "Auth\\": "generated-classes/"
       }
     }
 }
