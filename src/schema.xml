@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database name="auth" defaultIdMethod="native" namespace="Auth">
+
   <!-- Website to login to -->
   <table name="website" namespace="Website">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
@@ -8,17 +9,90 @@
   </table>
 
   <!-- Gates - Website connects to logins providers -->
-  <table name="gate" namespace="Gate">
+  <table name="website_gate" namespace="Website\Gate">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
     <column name="id_website" type="integer" required="true" />
     <column name="id_provider" type="integer" required="true" />
     <column name="key" type="varchar" size="128" required="true"/>
     <column name="secret" type="varchar" size="128" required="true"/>
-    <foreign-key foreignTable="website" phpName="Website" refPhpName="Gate">
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\Gate">
      <reference local="id_website" foreign="id"/>
     </foreign-key>
-    <foreign-key foreignTable="provider" phpName="Provider" refPhpName="Gate">
+    <foreign-key foreignTable="provider" phpName="Provider" refPhpName="Website\Gate">
      <reference local="id_provider" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Website Roles -->
+  <table name="website_role" namespace="Website\Role">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" required="true" />
+    <column name="title" type="varchar" size="255" required="true" />
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\Role">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Website Status -->
+  <table name="website_status" namespace="Website\Status">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" required="true" />
+    <column name="title" type="varchar" size="255" required="true" />
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\Status">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Website Permissions -->
+  <table name="website_permission" namespace="Website\Permission">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" required="true" />
+    <column name="title" type="varchar" size="255" required="true" />
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\Permission">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Website Permissions Roles -->
+  <table name="website_permissions_roles" namespace="Website\Permission\Role">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" required="true" />
+    <column name="id_permission" type="integer" required="true" />
+    <column name="id_role" type="integer" required="true" />
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\Permission\Role">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="website_permission" phpName="Website\Permission" refPhpName="Website\Permission\Role">
+     <reference local="id_permission" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="website_role" phpName="Website\Role" refPhpName="Website\Permission\Role">
+     <reference local="id_role" foreign="id"/>
+    </foreign-key>
+  </table>
+
+  <!-- Gates - Website connects to logins providers -->
+  <table name="user" namespace="Website\User">
+    <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true"/>
+    <column name="id_website" type="integer" primaryKey="true" required="true" />
+    <column name="id_role" type="integer" required="true"/>
+    <column name="id_status" type="integer" required="true"/>
+    <column name="email" type="varchar" size="256" primaryKey="true" required="true" />
+    <column name="password" type="varchar" size="256" />
+    <column name="secret" type="varchar" size="256" required="true"/>
+
+    <foreign-key foreignTable="website" phpName="Website" refPhpName="Website\User">
+     <reference local="id_website" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="website_role" phpName="Role" refPhpName="Website\User">
+     <reference local="id_role" foreign="id"/>
+    </foreign-key>
+    <foreign-key foreignTable="website_status" phpName="Website\Status" refPhpName="Website\User">
+     <reference local="id_status" foreign="id"/>
     </foreign-key>
   </table>
 
